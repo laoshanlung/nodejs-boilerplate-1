@@ -1,0 +1,11 @@
+id: vagrant
+file_client: local
+grains:
+  roles:
+    - haproxy
+    - nginx
+    - app
+    - postgresql
+    - redis
+    - vagrant
+    - mailcatcher

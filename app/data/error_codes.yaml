@@ -1,0 +1,119 @@
+---
+  - 
+    http: 400
+    api: 400
+    message: "Bad request"
+    description: |
+      General error indicating that the request is invalid
+  - 
+    http: 400
+    api: 40000
+    message: "Validation error"
+    description: |
+      The server fails to validate the data, `params` contains the validation errors in form of
+      `[{'attribute': ['error1', 'error2']}]`
+  - 
+    http: 400
+    api: 40001
+    message: "Application error"
+    description: |
+      General error indicating that the request can't be processed due to business or logical errors
+  - 
+    http: 400
+    api: 40002
+    message: "Invalid external access token token"
+    description: |
+      This is mainly used with `user/authenticate` API to indicate that the external access token (facebook, twitter etc..) is invalid and therefore can't be exchanged to chatwing access token
+  - 
+    http: 400
+    api: 40003
+    message: "Must have all the required paramemters"
+    description: |
+      The request must have **ALL** the required paramemters shown in `params.all`
+  - 
+    http: 400
+    api: 40004
+    message: "Must have at least one of the required parameters"
+    description: |
+      The request must have **AT LEAST ONE** of the parameters shown in `params.any`
+  - 
+    http: 400
+    api: 40005
+    message: "Unable to send message"
+    description: |
+      This error is specifically for `message/create` APIs (both in chatbox and conversation). Once having this error, the `params` will have `type` attribute to indicate the specific error, for example
+
+      ~~~json
+      {
+        "params": {
+          "type": "empty_message",
+          "description": "Empty message"
+        }
+      }
+      ~~~
+
+      More info can be found in each API
+  - 
+    http: 403
+    api: 403
+    message: "Access denied"
+    description: |
+      The user does not have the permission to access the resources
+  - 
+    http: 403
+    api: 40300
+    message: "Invalid request"
+    description: |
+      Who are you?
+  - 
+    http: 403
+    api: 40301
+    message: "Invalid access token"
+    description: |
+      The access token is invalid or the way of passing it is wrong
+
+  - 
+    http: 403
+    api: 40302
+    message: "Invalid Identity"
+    description: |
+      The current user does not have valid identity to perform the action on the targeted chatbox. They should login or switch to another login type if they have already authenticated
+
+      ~~~json
+      {
+        "error": {
+          "code": 40302,
+          "message": "Invalid Identity",
+          "params": {
+            "description": "Must login or switch to another login type to access the chatbox",
+            "authentication_methods": {
+              "chatwing": true,
+              "facebook": true,
+              "twitter": true,
+              "guest": true,
+              "google": true,
+              "yahoo": true,
+              "tumblr": false,
+              "instagram": false,
+              "vkontakte": false,
+              "linkedin": false
+            },
+            "forceLogin": true
+          }
+        }
+      }
+      ~~~
+
+  - 
+    http: 403
+    api: 40303
+    message: "Illegal access"
+    description: |
+      The current user does not have permission to perform the action. The difference between this error code and 40302 is that there is nothing the client should do about this case, just show the error message to whoever trying to illegally access the chatbox
+
+  - 
+    http: 500
+    api: 500
+    message: "Internal error"
+    description: |
+      Shit happens, nothing can be done

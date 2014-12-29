@@ -1,0 +1,36 @@
+{%- set postgresql = config.get('postgresql') %}
+{%- set redis = config.get('redis') %}
+{%- set email = config.get('email') %}
+{%- set domain = config.get('domain') %}
+{%- set admin = config.get('admin') %}
+{
+  "postgresql": {
+    "username": "{{ postgresql['username'] }}",
+    "password": "{{ postgresql['password'] }}",
+    "database": "{{ postgresql['database'] }}",
+    "host": "{{ postgresql['host'] }}",
+    "port": {{ postgresql['port'] }}
+  },
+  "redis": [
+    {%- for server in redis %}
+    {
+      "host": "{{ server['host'] }}",
+      "port": {{ server['port'] }},
+      "password": "{{ server['requirepass'] }}"
+    }{% if not loop.last %}, {% endif %}
+    {%- endfor %}
+  ],
+  "session": {
+    "key": "{{ pillar['app']['session']['key'] }}",
+    "secret": "{{ pillar['app']['session']['secret'] }}"
+  },
+  "email": {
+    {%- for key, value in email.iteritems() %}
+    {%- if value is string %}
+    "{{ key }}": "{{ value }}"
+    {%- else %}
+    "{{ key }}": {{ value }}
+    {%- endif %}{% if not loop.last %}, {% endif %}
+    {%- endfor %}
+  }
+}

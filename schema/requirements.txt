@@ -1,0 +1,6 @@
+storm==0.19
+Twisted==12.0.0
+psycopg2==2.5
+pyyaml==3.10
+boto
+git+git://github.com/brendonh/schemup.git@af3a0b6e9636360be06e6438bcb01f1aaeeb3aa6

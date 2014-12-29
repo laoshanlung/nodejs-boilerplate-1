@@ -1,0 +1,3 @@
+{% for env, server in pillar.get('postgresql', {}).iteritems() %}
+"{{ server['username'] }}" "{{ server['password'] }}"
+{% endfor %}

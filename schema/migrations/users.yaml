@@ -1,0 +1,13 @@
+---
+table: users
+from: null
+to: tan_1
+sql: |
+  CREATE TABLE users (
+    id UUID PRIMARY KEY DEFAULT uuid_generate_v1(),
+    login_id VARCHAR(256) NOT NULL,
+    login_type VARCHAR(256) NOT NULL,
+    date_created TIMESTAMP WITHOUT TIME ZONE DEFAULT (NOW() AT TIME ZONE 'UTC')
+  );
+
+  CREATE UNIQUE INDEX unique_login ON users (login_id, login_type);
